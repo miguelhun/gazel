@@ -63,6 +63,7 @@ const (
 )
 
 type Token struct {
-	Type  tokenType
-	value string
+	tokType  tokenType
+	value    string
+	position Position
 }
