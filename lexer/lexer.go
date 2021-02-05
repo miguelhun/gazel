@@ -11,6 +11,7 @@ type Lexer struct {
 	position     int
 	nextPosition int
 	ch           byte
+	filePosition Position
 }
 
 func NewLexer(src []byte) *Lexer {
@@ -20,6 +21,9 @@ func NewLexer(src []byte) *Lexer {
 func (lex *Lexer) ScanNext() Token {
 	var tok Token
 
+	lex.skipWhitespace()
+
+	return tok
 }
 
 func newToken(tokType tokenType, ch byte) Token {
@@ -48,8 +52,11 @@ func (lex *Lexer) peekChar() byte {
 }
 
 //
-//func (lex *Lexer) scanNumber() string {
-//
 //}
 //
 // skipWhitespace, scanNumber, scanString, etc
+func (lex *Lexer) skipWhitespace() {
+	for lex.ch == ' ' || lex.ch == '\t' || lex.ch == '\n' || lex.ch == '\r' {
+		lex.nextChar()
+	}
+}
